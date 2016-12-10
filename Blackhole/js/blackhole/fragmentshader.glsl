@@ -1,97 +1,85 @@
 precision mediump float;
 
-varying vec2 vUv;
+uniform sampler2D envmap;
 uniform sampler2D shiftSampler;
-uniform sampler2D backgroudSampler;
-
-uniform float time;
 uniform vec2 resolution;
-uniform float radius;
-uniform float beta;
-uniform float gamma;
 uniform float viewrot;
+
+varying vec4 vPosition;
+varying vec3 vNormal;
+varying vec3 vView;
+varying vec3 vEye;
 
 const float tanfov = 3.;
 
+vec2 envMapEquirect(vec3 wcNormal, float flipEnvMap) {
+  float phi = acos(wcNormal.y);
+  float theta = atan(flipEnvMap * wcNormal.x, wcNormal.z) + M_PI;
+  return vec2(theta / 2.0 / M_PI, phi / M_PI);
+}
+  
+vec2 envMapEquirect(vec3 wcNormal) {
+  return envMapEquirect(wcNormal, -1.0);
+}
+
 vec3 rotate(const vec3 v, float theta, const vec3 axis) {
-  float cosTheta = cos(theta);
-  return v * cosTheta + cross(axis, v) * sin(theta) + axis * dot(v, axis) * (1.0 - cosTheta);
+  float cosTheta = cos( theta );
+  return v * cosTheta + cross( axis, v ) * sin( theta ) + axis * dot( v, axis ) * ( 1.0 - cosTheta );
 }
 
-vec4 stripes(vec3 view, float flag) {
-  return vec4(flag * step(fract(5. * atan(view.z, view.x)), .8) * vec3(1., -view.y, view.y), 1.);
-}
-
-vec3 aberrate(vec3 original) {
-  return vec3(-beta * length(original) + gamma * original.x, original.yz);
-}
-
-vec4 distort(vec3 view, float flag) {
-  float latitude = acos(view.y) / M_PI;
-  float longitude = atan(view.z, view.x) / (2.0 * M_PI);
-
+vec4 textureUV(vec3 view, float flag) {
   return min(
-    texture2D(backgroudSampler, vec2(longitude, latitude)),
-    vec4(flag*vec3(1., 1., 1.), 1.)
+    texture2D( envmap, envMapEquirect( view ) ),
+    vec4( flag * vec3(1., 1., 1.), 1. )
   );
 }
 
-const float textureSize = 512.0;
-const float texelSize = 1.0 / textureSize;
+void main( void ) {
 
-vec4 texture2DInterp( sampler2D textureSampler, vec2 uv ) //not actually used right now
-{
-    vec4 tl = texture2D(textureSampler, uv);
-    vec4 tr = texture2D(textureSampler, uv + vec2(texelSize, 0));
-    vec4 bl = texture2D(textureSampler, uv + vec2(0, texelSize));
-    vec4 br = texture2D(textureSampler, uv + vec2(texelSize , texelSize));
-    vec2 f = fract( uv.xy * textureSize ); // get the decimal part
-    vec4 tA = mix( tl, tr, f.x ); // will interpolate the red dot in the image
-    vec4 tB = mix( bl, br, f.x ); // will interpolate the blue dot in the image
-    //return mix( tA, tB, f.y ); // will interpolate the green dot in the image
-    float st = smoothstep(0.,1.,f.y);
-    return tA*(1.0-st) + st*tB;
-}
+  vec2 position = gl_FragCoord.xy / resolution.xy - vec2( 0.5 );
+  position *= vec2( 1, resolution.y / resolution.x );
+  position *= 4.;
 
-void main() {
-  // Match resolution with gl_FragCoord
-  // determine center
-  vec2 position  = gl_FragCoord.xy / resolution.xy - vec2(0.5);
-  position *= vec2(1, resolution.y / resolution.x);
-  position *= 3.2;
+  vec3 uv = normalize(
+    rotate( vec3( position, -1. ), viewrot, vec3( 0, 1, 0 ) )
+  );
 
-  vec3 uv3 = normalize(aberrate(
-    rotate(vec3(position, -1.), viewrot, vec3(0, 1, 0))
-  ));
-  //  uv3 = normalize(rotate(vec3(position, -1.), viewrot, vec3(0, 1, 0)));
+  // Theta for view angle.
+  float theta = acos( dot( uv, vec3( 0, 0, -1 ) ) );
 
-  float theta = acos(dot(uv3, vec3(0, 0, -1)));
+  // Mapping coordinates.
+  // coordinate = ( distance , viewAngle )
+  vec2 params = vec2( ( 200. - 1. ) / 9., 1. - theta / M_PI );
 
-  // params is coordinate in shiftSampler (viewAngle)
-  vec2 params = vec2((radius - 1.) / 9., 1. - theta / M_PI);
+  // Distort Reference shfit angle from [https://github.com/rantonels/schwarzschild]
+  // using variable params.
+  vec4 distcolor = texture2D( shiftSampler, params );
 
-  vec4 distcolor = texture2D(shiftSampler, params);
-
+  // Calculate Phi_ba and Phi from distcolor
+  // Expression from [https://github.com/rantonels/schwarzschild]
   float Phi_ba = 2. * M_PI * (0.98 * distcolor.r + 0.1 * distcolor.g);
   float Phi = (1.-step(theta,1.0))*Phi_ba + (step(theta,1.0))*Phi_ba;
 
-  vec3 v3 = -normalize(cross(vec3(0, 0, -1), uv3));
+  vec3 viewAxis = -normalize(cross(vNormal, cameraPosition));
 
-  uv3 = rotate(vec3(0, 0, radius), Phi, v3);
-
+  // Rotate View vector by Phi angle with axis of view.
+  vec3 distVector = rotate(-vView, Phi, viewAxis);
+  
+  // Event Horizon factor.
   float nothorizon = max(
-    smoothstep(0., 0.05, texture2D(shiftSampler, params).r) * (1. - step(theta, 0.01)),
+    smoothstep(0., 0.05, distcolor.r) * (1. - step(theta, 0.01)),
     (1. - step(theta, 2.57))
   );
-
-  // rotate backgroud
-  //  uv3 = rotate(uv3, time * 0.0015/*0.0015*/, vec3(0., 1., 0.));
-
-  vec4 color = distort(normalize(uv3), nothorizon);
+  
+  // Plot distorted vector to Envirounment map with some vector was change to 
+  // pure black because of event horizon.  
+  vec4 color = textureUV( normalize(distVector), nothorizon );
 
   gl_FragColor = color;
-  // gl_FragColor = distcolor;//texture2D(backgroudSampler, position);	//DEBUG: test uv
-  // gl_FragColor = vec4(v3, 1.0);
-  // gl_FragColor = vec4(Phi * vec3(1.,1.,1.),1.);		//DEBUG: test theta
-  // gl_FragColor = vec4(viewrot * vec3(1., 1., 1.), 1.);
+  // gl_FragColor = texture2D( envmap, envMapEquirect( vView ) );
+  // gl_FragColor = vec4(uv, 1.0);
+  // gl_FragColor = vec4(theta * vec3(1.,1.,1.),1.);
+  // gl_FragColor = distcolor;
+  // gl_FragColor = vec4(distVector, 1.0);
+
 }
