@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>WebGL</title>
+    <script type="text/javascript">
+      function InitializeWebGL() {
+        var canvas = document.getElementById('gl');
+
+        var gl = canvas.getContext("webgl") ||
+                 canvas.getContext("experimental-webgl") ||
+                 canvas.getContext("moz-webgl") ||
+                 canvas.getContext("webkit-3d");
+        if (gl) {
+          var extension = gl.getSupportedExtensions();
+          console.log(gl);
+          console.log(extension);
+        } else {
+          console.log('Not supported.');
+        }
+      }
+    </script>
+  </head>
+  <body onload="InitializeWebGL()">
+    <canvas id="gl" width="640" height="480"></canvas>
+  </body>
+</html>
