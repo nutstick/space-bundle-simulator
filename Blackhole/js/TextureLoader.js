@@ -15,9 +15,7 @@ function loadTexture(texture) {
         textureLoadComplete();
       }
     },
-    function ( xhr ) {
-  		console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-  	},
+    function ( xhr ) {},
     function ( xhr ) {
   		console.log( 'An error happened' );
   	}
@@ -50,7 +48,6 @@ function textureLoader() {
   var textures = $( '[data-texture]' );
   var cubeTextures = $( 'cubemap' );
   textureCount = textures.length + cubeTextures.length;
-  console.log(textureCount);
 
   for (var t = 0; t < textures.length; t++) {
     loadTexture(textures[t]);

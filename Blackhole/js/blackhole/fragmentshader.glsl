@@ -45,8 +45,8 @@ void main( void ) {
   );
 
   // Theta for view angle.
-  float theta = acos( dot( uv, vec3( 0, 0, -1 ) ) );
-
+  // float theta = acos( dot( uv, vec3( 0, 0, -1 ) ) );
+  float theta = acos( dot( normalize(vNormal), normalize(-vEye) ) ) * 3.;
   // Mapping coordinates.
   // coordinate = ( distance , viewAngle )
   vec2 params = vec2( ( 200. - 1. ) / 9., 1. - theta / M_PI );
