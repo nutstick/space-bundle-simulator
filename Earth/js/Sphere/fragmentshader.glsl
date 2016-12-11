@@ -4,7 +4,7 @@ uniform sampler2D earthMap;
 uniform sampler2D bumpMap;
 uniform sampler2D specMap;
 uniform float bumpScale;
-uniform vec3 specular;
+// uniform vec3 specular;
 struct PointLight {
   vec3 position;
   vec3 color;
@@ -22,11 +22,16 @@ void main(void) {
     vec3 adjustedLight = pointLights[l].position + cameraPosition;
     vec3 lightDirection = normalize(vPosition - adjustedLight);
     
-    c = 0.35 + max(0.0, dot(vNormal, lightDirection)) * 1.;
-    addedLights.rgb += clamp(dot(lightDirection, vNormal), 0.0, 1.0) * pointLights[l].color;
+    c = max(0.0, dot(vNormal, lightDirection)) * 1.;
+    addedLights.rgb += clamp(dot(vNormal, lightDirection), 0.0, 1.0) * pointLights[l].color;
   }
 
+  vec4 specular = texture2D(specMap, vUv);
+  vec4 invertSpecular = vec4(1.0, 1.0, 1.0, 0.0) - specular;
 
-  gl_FragColor = addedLights;
-  // gl_FragColor = texture2D(earthMap, vUv) * addedLights;
+
+  // gl_FragColor = addedLights;
+   gl_FragColor = texture2D(earthMap, vUv) * addedLights;
+  //gl_FragColor = texture2D(earthMap, vUv) * addedLights * invertSpecular
+  //  + vec4(0.0, 1.0, 1.0, 1.0) * addedLights * specular;
 }

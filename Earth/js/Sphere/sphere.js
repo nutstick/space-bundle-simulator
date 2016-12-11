@@ -10,8 +10,8 @@ function Sphere( scene, light ) {
         earthMap: { type: 't', value: Texture.earthmap },
         bumpMap: { type: 't', value: Texture.bumpmap },
         specMap: { type: 't', value: Texture.specmap },
-        bumpScale: { type: 'f', value: 4.0 },
-        specular: { type: 'c', value: new THREE.Color('grey') }
+        bumpScale: { type: 'f', value: 3.0 }
+        // specular: { type: 'c', value: new THREE.Color('grey') }
       }
   );
   var _geometry = new THREE.SphereGeometry( 140, 256, 256 );
