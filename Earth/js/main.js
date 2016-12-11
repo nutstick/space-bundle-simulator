@@ -28,7 +28,7 @@ function init() {
   scene.background = Texture.cubemap;
 
   camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR );
-  camera.position.set(0, 15, 40);
+  camera.position.set(0, 150, 400);
   camera.lookAt(scene.position);
 
   raycaster = new THREE.Raycaster();
@@ -47,7 +47,7 @@ function init() {
 
   // Setup Light
   var light = new THREE.PointLight( 0xffffff );
-  light.position.set(250, 0, 100);
+  light.position.set(1000,0, 0);
 	scene.add(light);
 
   // LarvaBall();

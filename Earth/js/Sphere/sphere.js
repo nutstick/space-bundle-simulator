@@ -1,23 +1,20 @@
 
 function Sphere( scene, light ) {
   var radians = 23.5 * Math.PI / 180;
-  this.time = 0.001;
   var uniforms = Object.assign(
       THREE.UniformsLib['lights'],
+      // THREE.UniformsLib['shadowmap'],
       {
-        lightColor: { type: 'c', value: new THREE.Color('white') },
-        lightPosition: { type: 'v3', value: new THREE.Vector3(800, 100, 100) },
+        time: { type: 'f', value: 0 },
         earthMap: { type: 't', value: Texture.earthmap },
+        earthNMap : { type : 't', value: Texture.earthnmap},
         bumpMap: { type: 't', value: Texture.bumpmap },
         specMap: { type: 't', value: Texture.specmap },
-        bumpScale: { type: 'f', value: 0.08 },
-        specular: { type: 'c', value: new THREE.Color('grey') }
+        bumpScale: { type: 'f', value: 3.0 },
+        specularDirection: { type: 'v3', value: new THREE.Vector3(-15.,10.,22.5)},
       }
   );
-
-  console.log(uniforms);
-
-  var _geometry = new THREE.SphereGeometry(8,32,32);
+  var _geometry = new THREE.SphereGeometry( 140, 256, 256 );
   var _material = new THREE.ShaderMaterial({
     uniforms: uniforms,
     defines: {
@@ -35,6 +32,15 @@ function Sphere( scene, light ) {
   // _material.specular = new THREE.Color('grey');
 
   var _mesh = new THREE.Mesh(_geometry, _material);
+  // _mesh.castShadow = true;
+  // _mesh.receiveShadow = true;
+  // magic here
+  /*_mesh.customDepthMaterial = new THREE.ShaderMaterial({
+      vertexShader: Shader.vs_depth.vertex,
+      fragmentShader: THREE.ShaderLib.depth.fragmentShader,
+      uniforms: _material.uniforms
+  })*/
+
 
   // var cgeometry   = new THREE.SphereGeometry(5.2, 32, 32)
   // var cmaterial  = new THREE.MeshPhongMaterial();
@@ -62,8 +68,8 @@ function Sphere( scene, light ) {
 
 
 Sphere.prototype.animate = function () {
-   var axis = new THREE.Vector3(0, 1, 0).normalize();
-   this.mesh.rotateOnAxis(axis,this.time);
+  var axis = new THREE.Vector3(0, 1, 0).normalize();
+  this.mesh.rotateOnAxis(axis, 0.001);
   //  this.cmesh.rotateOnAxis(axis,this.time*1.3);
 
   // // this.mesh.rotation.x += 0.01;

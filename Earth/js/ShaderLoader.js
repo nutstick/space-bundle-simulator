@@ -4,6 +4,10 @@
 var shaderCount = 0;
 var Shader = {};
 
+function replaceThreeChunkFn(a, b) {
+    return THREE.ShaderChunk[b] + '\n';
+}
+
 function loadShader(shader, type) {
   var $shader = $(shader);
   $.ajax({
@@ -22,7 +26,7 @@ function processShader(jqXHR, textStatus) {
   if (!Shader[this.name]) {
     Shader[this.name] = { vertex: '', fragment: '' };
   }
-  Shader[this.name][this.type] = jqXHR.responseText;
+  Shader[this.name][this.type] = jqXHR.responseText.replace(/\/\/\s?chunk\(\s?(\w+)\s?\);/g, replaceThreeChunkFn);
   if (!shaderCount) {
     shaderLoadComplete();
   }

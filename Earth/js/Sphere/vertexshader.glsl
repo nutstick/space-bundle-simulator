@@ -1,23 +1,32 @@
 precision mediump float;
 
+struct PointLight {
+  vec3 position;
+  vec3 color;
+};
+
 varying vec2 vUv;
-varying vec3 fNormal;
 varying vec3 vPosition;
 varying vec3 vNormal;
+varying vec3 vView;
+varying vec3 vEye;
 
-uniform float bumpScale;
+uniform PointLight pointLights[ NUM_POINT_LIGHTS ];
 uniform sampler2D bumpMap;
+uniform float bumpScale;
+// chunk(shadowmap_pars_vertex);
 
 void main(void) {
-  vec3 vEye = normalize( cameraPosition - position.xyz );
-  vPosition = (modelMatrix * vec4( position, 1.0 )).xyz;
-  vNormal = normalMatrix * normal;
+  vec3 offset = normal * (texture2D(bumpMap, uv).r - 0.5) * bumpScale;
+  vec3 pos = position + offset;
+
   vUv = uv;
-  fNormal = normal;
+  vEye = normalize( cameraPosition - position.xyz );
+  vView = normalize( ( modelMatrix * vec4( vEye, 1.0 ) ).xyz );
+  vNormal = normalize( ( normalMatrix * normal ).xyz );
+  vPosition = ( modelMatrix * vec4( pos, 1.0 ) ).xyz;
 
-  vec4 bumpTex = texture2D(bumpMap,vUv);
-  float noise = bumpTex.r;
+  // chunk(shadowmap_vertex);
 
-  vec3 newPosition = (position + normal * noise * bumpScale);
-  gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
+  gl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );
 }
