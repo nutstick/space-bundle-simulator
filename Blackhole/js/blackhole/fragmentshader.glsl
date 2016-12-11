@@ -76,7 +76,6 @@ void main( void ) {
   vec4 color = textureUV( normalize(distVector), nothorizon );
 
   gl_FragColor = color;
-  // gl_FragColor = texture2D( envmap, envMapEquirect( vView ) );
   // gl_FragColor = vec4(uv, 1.0);
   // gl_FragColor = vec4(theta * vec3(1.,1.,1.),1.);
   // gl_FragColor = distcolor;

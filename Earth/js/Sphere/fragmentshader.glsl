@@ -16,13 +16,17 @@ varying vec3 vPosition;
 varying vec3 vNormal;
 
 void main(void) {
-  vec4 addedLights = vec4(0.1, 0.1, 0.1, 1.0);
+  vec4 addedLights = vec4(0.0, 0.0, 0.0, 1.0);
+  float c;
   for(int l = 0; l < NUM_POINT_LIGHTS; l++) {
     vec3 adjustedLight = pointLights[l].position + cameraPosition;
     vec3 lightDirection = normalize(vPosition - adjustedLight);
-    addedLights.rgb += clamp(dot(-lightDirection, vNormal), 0.0, 1.0) * pointLights[l].color;
+    
+    c = 0.35 + max(0.0, dot(vNormal, lightDirection)) * 1.;
+    addedLights.rgb += clamp(dot(lightDirection, vNormal), 0.0, 1.0) * pointLights[l].color;
   }
-  // gl_FragColor = addedLights;//mix(vec4(diffuse.x, diffuse.y, diffuse.z, 1.0), addedLights, addedLights);
-  gl_FragColor = vec4(vec3(vUv, 0.0), 1.0);
-  gl_FragColor = mix(texture2D(earthMap, vUv), addedLights, addedLights);
+
+
+  gl_FragColor = addedLights;
+  // gl_FragColor = texture2D(earthMap, vUv) * addedLights;
 }
