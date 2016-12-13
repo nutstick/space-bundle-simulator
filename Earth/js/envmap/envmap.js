@@ -1,6 +1,6 @@
 function EnvMap(scene) {
 
-  var _geometry = new THREE.IcosahedronGeometry( 2000, 2 );
+  var _geometry = new THREE.IcosahedronGeometry( 800, 2 );
   var _material = new THREE.ShaderMaterial({
     uniforms: {
       envmap: { type: 't', value: Texture.envMap },

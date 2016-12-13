@@ -20,6 +20,7 @@ function Sphere( scene ) {
     vertexShader: Shader.blackhole.vertex,
     fragmentShader: Shader.blackhole.fragment,
   });
+  
   var _mesh = new THREE.Mesh( _geometry, _material );
 
   this.mesh = _mesh;

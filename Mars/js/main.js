@@ -1,8 +1,8 @@
-var WIDTH = 800;
-var HEIGHT = 600;
+var WIDTH;
+var HEIGHT;
 
 var VIEW_ANGLE = 45/* 75 */;
-var ASPECT = WIDTH / HEIGHT;
+var ASPECT;
 var NEAR = 0.1;
 var FAR = 20000;
 
@@ -12,6 +12,15 @@ var meshes = {};
 var clock = new THREE.Clock();
 
 var time = 0.0;
+
+function onWindowResize( event ) {
+  
+  camera.aspect = $( '#container' ).innerWidth() / $( '#container' ).innerHeight();
+  camera.updateProjectionMatrix();
+
+  renderer.setSize( $( '#container' ).innerWidth(), $( '#container' ).innerHeight() );
+
+}
 
 function onMouseMove( event ) {
 
@@ -24,6 +33,9 @@ function onMouseMove( event ) {
 
 function init() {
   scene = new THREE.Scene();
+  WIDTH = $( '#container' ).innerWidth();
+  HEIGHT = $( '#container' ).innerHeight();
+  ASPECT = WIDTH / HEIGHT;
 
   scene.background = Texture.cubemap;
 
@@ -47,13 +59,13 @@ function init() {
 
   // Setup Light
   var light = new THREE.PointLight( 0xffffff );
-  light.position.set(250, 100, 100);
+  light.position.set(6500, 0, 650);
 	scene.add(light);
 
   // LarvaBall();
   // BlackholePlane();
   // meshes['cubemap'] = new Cubemap( scene );
-  meshes['mars'] = new Mars( scene );
+  meshes['mars'] = new Mars( scene, light );
 
   // One frame rendering
   // renderer.render( scene, camera );
@@ -74,3 +86,5 @@ function animate() {
 }
 
 window.addEventListener( 'mousemove', onMouseMove, false );
+
+window.addEventListener( 'resize', onWindowResize, false );

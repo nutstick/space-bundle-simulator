@@ -1,5 +1,5 @@
-var WIDTH = 800;
-var HEIGHT = 600;
+var WIDTH;
+var HEIGHT;
 
 var VIEW_ANGLE = 45/* 75 */;
 var ASPECT = WIDTH / HEIGHT;
@@ -13,6 +13,15 @@ var clock = new THREE.Clock();
 
 var time = 0.0;
 
+function onWindowResize( event ) {
+  
+  camera.aspect = $( '#container' ).innerWidth() / $( '#container' ).innerHeight();
+  camera.updateProjectionMatrix();
+
+  renderer.setSize( $( '#container' ).innerWidth(), $( '#container' ).innerHeight() );
+
+}
+
 function onMouseMove( event ) {
 
 	// calculate mouse position in normalized device coordinates
@@ -24,8 +33,9 @@ function onMouseMove( event ) {
 
 function init() {
   scene = new THREE.Scene();
-
-  scene.background = Texture.cubemap;
+  WIDTH = $( '#container' ).innerWidth();
+  HEIGHT = $( '#container' ).innerHeight();
+  ASPECT = WIDTH / HEIGHT;
 
   camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR );
   camera.position.set(0, 150, 400);
@@ -47,14 +57,16 @@ function init() {
 
   // Setup Light
   var light = new THREE.PointLight( 0xffffff );
-  light.position.set(250, 100, 100);
+  light.position.set(6500, 0, 650);
 	scene.add(light);
 
   // LarvaBall();
   // BlackholePlane();
   // meshes['cubemap'] = new Cubemap( scene );
 
-  meshes['sphere'] = new Sphere( scene );
+  meshes['env'] = new EnvMap( scene );
+  meshes['earth'] = new Earth( scene, light );
+  meshes['atmosphere'] = new Atmosphere( scene );
 
   // One frame rendering
   // renderer.render( scene, camera );
@@ -65,7 +77,7 @@ function animate() {
     requestAnimationFrame( animate );
 
     // update control
-    meshes['sphere'].animate();
+    meshes['earth'].animate();
     // meshes['cubemap'].animate();
 
     controls.update();

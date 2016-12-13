@@ -4,10 +4,13 @@
 		<meta charset="utf-8" />
 		<title>Sample Three.js</title>
 		<style>
+			body {
+				margin: 0;
+				overflow: hidden;
+			}
 			#container {
-				background: #aa0;
-				/* +width: 400px; */
-				/* height: 300px; */
+				width: 100%;
+				height: 100vh;
 			}
 		</style>
 	</head>
@@ -27,14 +30,15 @@
   <script src="js/dat.gui.min.js"></script>
   <script src="js/Detector.js"></script>
   <script src="js/OrbitControls.js"></script>
+  <script src="js/BufferGeometryUtils.js"></script>
 	<!-- Shaders -->
 	<script data-src="./js/Mars/vertexshader.glsl" data-name="mars" type="x-shader/x-vertex"></script>
 	<script data-src="./js/Mars/fragmentshader.glsl" data-name="mars" type="x-shader/x-fragment"></script>
 	<!-- End Shaders -->
 	<!-- Textures -->
-	<texture data-texture data-src="./img/mars.jpg" data-name="map" />
-	<texture data-texture data-src="./img/mars_normal.jpg" data-name="normalmap" />
-	<texture data-texture data-src="./img/mars_mola_bumpmap_4096x2048.jpg" data-name="bumpmap" />
+	<texture data-texture data-src="./img/marsmap1k.jpg" data-name="map" />
+	<texture data-texture data-src="./img/normal_map.jpg" data-name="normalmap" />
+	<texture data-texture data-src="./img/bump_map.jpg" data-name="bumpmap" />
   <!-- cubemap data-src="./img/cubemap/" data-name="cubemap">
   	<xneg data-src="dawnmountain-xneg.png" />
   	<xpos data-src="dawnmountain-xpos.png" />

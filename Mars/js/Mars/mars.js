@@ -1,18 +1,16 @@
 
-function Mars( scene ) {
+function Mars( scene, light ) {
   var uniforms = Object.assign(
       THREE.UniformsLib['lights'],
-      // THREE.UniformsLib['shadowmap'],
+      THREE.UniformsLib['normalmap'],
       {
-        time: { type: 'f', value: 0 },
+        lightPosition: { type: 'v3', value: light.position },
         textureMap: { type: 't', value: Texture.map },
-        normalMap: { type: 't', value: Texture.normalmap },
-        bumpMap: { type: 't', value: Texture.bumpmap },
-        bumpScale: { type: 'f', value: 4.0 }
-        // specular: { type: 'c', value: new THREE.Color('grey') }
+        normalMap: { type: 't', value: Texture.normalmap }
       }
   );
-  var _geometry = new THREE.SphereGeometry( 140, 256, 256 );
+  var _geometry = new THREE.SphereBufferGeometry( 140, 256, 256 );
+  
   var _material = new THREE.ShaderMaterial({
     uniforms: uniforms,
     defines: {
@@ -20,10 +18,15 @@ function Mars( scene ) {
     },
     vertexShader: Shader.mars.vertex,
     fragmentShader: Shader.mars.fragment,
-    lights: true
+    lights: true,
+    fog: false
   });
   
   var _mesh = new THREE.Mesh(_geometry, _material);
+
+  _mesh.castShadow = true;
+  _mesh.receiveShadow = true;
+  THREE.BufferGeometryUtils.computeTangents( _mesh.geometry );
 
   this.mesh = _mesh;
   this.material = _material;
@@ -37,5 +40,6 @@ function Mars( scene ) {
 
 
 Mars.prototype.animate = function () {
-
+  var axis = new THREE.Vector3(0, 1, 0).normalize();
+  this.mesh.rotateOnAxis(axis, 0.005);
 };

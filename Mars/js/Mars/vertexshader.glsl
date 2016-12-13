@@ -1,31 +1,27 @@
-precision mediump float;
+attribute vec4 tangent;
 
-struct PointLight {
-  vec3 position;
-  vec3 color;
-};
+uniform vec3 lightPosition;
+uniform sampler2D bumpMap;
 
 varying vec2 vUv;
-varying vec3 vPosition;
-varying vec3 vNormal;
-varying vec3 viewPointLights[ NUM_POINT_LIGHTS ];
+varying mat3 tbn;
+varying vec3 vLightVector;
 
-uniform PointLight pointLights[ NUM_POINT_LIGHTS ];
-uniform sampler2D bumpMap;
-uniform float bumpScale;
-// chunk(shadowmap_pars_vertex);
+void main() {
+    vUv = uv;
 
-void main(void) {
-  vec3 offset = normal * (texture2D(bumpMap, uv).r - 0.5) * bumpScale;
-  vec3 pos = position + offset;
-  vUv = uv;
-  vNormal = normalMatrix * normal;
-  vPosition = ( modelMatrix * vec4( pos, 1.0 ) ).xyz;
-  for ( int l = 0; l < NUM_POINT_LIGHTS; l++ ) {
-    viewPointLights[ l ] = ( modelViewMatrix * vec4( pointLights[ l ].position, 1.0 ) ).xyz;
-  }
+    vec3 offset = normal * ( texture2D( bumpMap, uv ).r - 0.5 );
+    // Create the Tangent-Binormal-Normal Matrix used for transforming
+    // coordinates from object space to tangent space
+    vec3 vNormal = normalize( normalMatrix * normal );
+    vec3 vTangent = normalize( normalMatrix * tangent.xyz );
+    vec3 vBinormal = normalize( cross( vNormal, vTangent ) * tangent.w );
+    tbn = mat3( vTangent, vBinormal, vNormal );
 
-  // chunk(shadowmap_vertex);
+    // Calculate the Vertex-to-Light Vector 
+    vec4 lightVector = viewMatrix * vec4( lightPosition, 1.0 );
+    vec4 modelViewPosition = modelViewMatrix * vec4( position, 1.0 );
+    vLightVector = normalize( lightVector.xyz - modelViewPosition.xyz );
 
-  gl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position + offset, 1.0);
 }

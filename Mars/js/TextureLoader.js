@@ -15,9 +15,7 @@ function loadTexture(texture) {
         textureLoadComplete();
       }
     },
-    function ( xhr ) {
-  		console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-  	},
+    function ( xhr ) {},
     function ( xhr ) {
   		console.log( 'An error happened' );
   	}

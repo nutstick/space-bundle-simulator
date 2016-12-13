@@ -37,8 +37,6 @@ function init() {
   HEIGHT = $( '#container' ).innerHeight();
   ASPECT = WIDTH / HEIGHT;
 
-  scene.background = Texture.cubemap;
-
   camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR );
   camera.position.set(0, 150, 400);
   camera.lookAt(scene.position);
