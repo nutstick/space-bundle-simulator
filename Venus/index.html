@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Sample Three.js</title>
+	<style>
+			body {
+				margin: 0;
+				overflow: hidden;
+			}
+			#container {
+				width: 100%;
+				height: 100vh;
+			}
+	</style>
+</head>
+<body onload="shaderLoader()">
+
+	<div id="container">
+
+
+	</div>
+
+</body>
+<!-- Importing Scirpt  -->
+<script src="js/jquery.min.js"></script>
+<script src="js/three.min.js"></script>
+<script src="js/ShaderLoader.js"></script>
+<script src="js/TextureLoader.js"></script>
+<script src="js/dat.gui.min.js"></script>
+<script src="js/Detector.js"></script>
+<script src="js/OrbitControls.js"></script>
+<script src="js/BufferGeometryUtils.js"></script>
+<!-- Shaders -->
+<script data-src="./js/envmap/vertexshader.glsl" data-name="envmap" type="x-shader/x-vertex"></script>
+<script data-src="./js/envmap/fragmentshader.glsl" data-name="envmap" type="x-shader/x-fragment"></script>
+<script data-src="./js/venus/vertexshader.glsl" data-name="venus" type="x-shader/x-vertex"></script>
+<script data-src="./js/venus/fragmentshader.glsl" data-name="venus" type="x-shader/x-fragment"></script>
+<script data-src="./js/venusatmos/vertexshader.glsl" data-name="venusatmos" type="x-shader/x-vertex"></script>
+<script data-src="./js/venusatmos/fragmentshader.glsl" data-name="venusatmos" type="x-shader/x-fragment"></script>
+<!-- End Shaders -->
+<!-- Textures -->
+<texture data-texture data-src="./img/bg1024.png" data-name="envMap"></texture>
+<texture data-texture data-src="./img/venusmap.jpg" data-name="map"></texture>
+<texture data-texture data-src="./img/VenusNormal2k.png" data-name="normalmap"></texture>
+<texture data-texture data-src="./img/venusatmos.jpg" data-name="venusatmos"></texture>
+<!-- End Textures -->
+
+<script src="js/main.js" type="text/javascript"></script>
+<script src="js/envmap/envmap.js" type="text/javascript"></script>
+<script src="js/venus/venus.js" type="text/javascript"></script>
+<script src="js/venusatmos/venusatmos.js" type="text/javascript"></script>
+</html>
