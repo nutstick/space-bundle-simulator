@@ -1,10 +1,9 @@
 
-function Atmosphere( scene ) {
-  var radians = 23.5 * Math.PI / 180;
-  this.time = 0;
+function Glow( scene ) {
+  
   var uniforms = {
-    coeficient	: { type	: "f", value	: 0.8 },
-    power		: { type	: "f", value	: 2 },
+    coeficient	: { type	: "f", value	: 0.5 },
+    power		: { type	: "f", value	: 4 },
     glowColor	: { type	: "c", value	: new THREE.Color( 0x00b3ff ) }
   };
   var _geometry = new THREE.IcosahedronGeometry( 140, 4 );
@@ -15,14 +14,14 @@ function Atmosphere( scene ) {
     },
     vertexShader: Shader.atmosphere.vertex,
     fragmentShader: Shader.atmosphere.fragment,
-    side: THREE.FrontSide,
+    side: THREE.BackSide,
     blending: THREE.AdditiveBlending,
     transparent: true,
     depthWrite: true
   });
 
   var _mesh = new THREE.Mesh(_geometry, _material);
-  _mesh.scale.multiplyScalar(1.01);
+  _mesh.scale.multiplyScalar(1.05);
 
   this.mesh = _mesh;
   this.material = _material;
@@ -35,7 +34,7 @@ function Atmosphere( scene ) {
 }
 
 
-Atmosphere.prototype.animate = function () {
+Glow.prototype.animate = function () {
   /*
   var axis = new THREE.Vector3(0, 1, 0).normalize();
   this.mesh.rotateOnAxis(axis, 0.001);
