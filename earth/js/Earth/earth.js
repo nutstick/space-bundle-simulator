@@ -8,8 +8,8 @@ function Earth( scene, light, radius ) {
       THREE.UniformsLib['normalmap'],
       {
         lightPosition: { type: 'v3', value: light.position },
-        textureMap: { type: 't', value: Texture.earthmaps },
-        normalMap: { type: 't', value: Texture.earthnormalmaps }
+        textureMap: { type: 't', value: Texture.earthmap },
+        normalMap: { type: 't', value: Texture.earthnormalmap }
       }
   );
   var _geometry = new THREE.SphereBufferGeometry( myRadius, 256, 256 );
