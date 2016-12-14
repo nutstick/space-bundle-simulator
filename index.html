@@ -15,37 +15,34 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
 
   <style>
     body { 
       position: relative;
       background: #000;
-      font-family: 'Kanit', sans-serif;
+      font-family: 'Amatic SC', cursive;
     }
     .background {
-      position: absolute;
-      left: -20px;
-      right: 20px;
+      position: fixed;
+      left: -0px;
+      right: 0px;
       z-index: -1;
-      background: #000 url(http://www.space.com/images/site/page-bg.jpg) no-repeat top;
+      background: #000 url(thumbnails/bg.jpg) no-repeat top;
 
       display: block;
-      width: 120%;
       height: 100vh;
-      /*
-      webkit-filter: blur(2px);
-      -moz-filter: blur(2px);
-      -o-filter: blur(2px);
-      -ms-filter: blur(2px);
-      filter: blur(2px);
-      */
     }
-    .first.container {
-      background: rgba(255,255,255,1);
+    section {
+      height: 100vh;
     }
-    h1 {
+    #title h1 {
       text-align: center;
+      margin-top: 450px;
+      color: #fff;
+      font-size: 72px;
+      letter-spacing: 0.5rem
     }
     ul.thumbnail-list {
       list-style: none;
@@ -64,12 +61,15 @@
       justify-content: space-around;
     }
     ul.thumbnail-list > li {
+      background: white;
       width: 340px;
       border-radius: 2px;
       position: relative;
       overflow: hidden;
       border-radius: 4px;
       margin: 15px;
+      font-weight: 500;
+      font-family: 'Bree Serif', serif;
 
       box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
     }
@@ -77,34 +77,49 @@
       text-decoration: none;
     }
     .thumbnails {
-      width: 340px;
-      height: 176px;
-      background: tomato;
-      border: 0px;
-    }
-    .text-subtitle {
-      color: rgba(0,0,0,.54);
-      font-size: 1rem;
-      line-height: 18px;
-      overflow: hidden;
-      padding: 16px;
-      width: 90%;
+      width: 100%;
+      height: 100%;
     }
     .text-title {
-      font-size: 16px;
-      line-height: normal;
-      width: 100%;
-      background-color: transparent;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 3;
+
+      opacity: 0;
+
+      font-size: 42px;
+      line-height: 162px;
+      text-align: center;
       padding: 16px;
-      box-sizing: border-box;
+      color: #fff;
+      background: rgba(0, 0, 0, .6);
+
+      -webkit-transition: opacity 0.5s ease-in-out;
+      -moz-transition: opacity 0.5s ease-in-out;
+      -o-transition: opacity 0.5s ease-in-out;
+      -ms-transition: opacity 0.5s ease-in-out;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .text-title:hover {
+      opacity: 1;
+    }
+
+    #name {
+      color: #fff;
+      font-size: 48px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="container first">
-    <div class="background"></div>
+  <div class="background"></div>
+  <section id="title" class="container">
     <h1>Space Bundle</h1>
-    <hr>
+  </section>
+  <section class="container">
     <ul class="thumbnail-list">
       <li>
         <a href="./blackhole">
@@ -150,18 +165,24 @@
       </li>
       <li>
         <a href="./asteriod">
-          <img class="thumbnails" src="thumbnails/saturn.png"></img>
+          <img class="thumbnails" src="thumbnails/asteriod.png"></img>
+          <div class="text-title">Asteriod</div>
+        </a>
+      </li>
+      <li>
+        <a href="./asteriod">
+          <img class="thumbnails" src="thumbnails/asteriod.png"></img>
           <div class="text-title">Asteriod</div>
         </a>
       </li>
     </ul>
-  </div>
-  <div class="container second">
+  </section>
+  <section id="name"class="container">
     <p>Project By</p>
-    <p>1.</p>
-    <p>2.</p>
-    <p>3.</p>
-    <p>4.</p>
+    <p>1. Nuttapat Kirawittaya</p>
+    <p>2. Wasin Watthanasrisong</p>
+    <p>3. Kissada Pornratthanapong</p>
+    <p>4. Nuttasit Mahakusolsirikul</p>
   </div>
 </body>
 </html>
