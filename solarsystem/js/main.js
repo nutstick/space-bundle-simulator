@@ -78,7 +78,7 @@ function animate() {
     requestAnimationFrame( animate );
 
     // update control
-    // meshes['SolarSystem'].animate();
+    meshes['SolarSystem'].animate();
     // meshes['earth'].animate();
 
     controls.update();
