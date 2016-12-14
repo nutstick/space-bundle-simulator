@@ -5,7 +5,7 @@ function sun( scene ,radius){
   var geometry = new THREE.IcosahedronGeometry( radius, 6 );
   var material  = new THREE.ShaderMaterial({
     uniforms: {
-        sunmap: {
+        map: {
             type: "t",
             value: Texture.sunmap
         },

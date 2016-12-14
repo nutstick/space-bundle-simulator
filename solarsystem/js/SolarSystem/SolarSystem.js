@@ -14,30 +14,32 @@ function SolarSystem( scene, light ) {
   var MoonR=0.272*eR;     //Moon radius
   var SunR=109*eR;        //Sun radius
 
-  meshes['fireball'] = new fireball(scene, SunR);
-  meshes['sun'] = new sun(scene,SunR);
-  meshes['sprite'] = new sun(scene,SunR);
-
   var pv1 = new THREE.Object3D();
-  pv1.add(meshes['fireball'],meshes['sun'],meshes['sprite'])
 
-  meshes['earth'] = new Earth( scene, light, eR);
-  meshes['atmosphere'] = new Atmosphere( scene, eR);
-  meshes['glow'] = new Glow( scene, eR);
+  meshes['fireball'] = new fireball(pv1, SunR);
+  meshes['sun'] = new sun(pv1,SunR);
+  meshes['sprite'] = new sun(pv1,SunR);
+
+  // pv1.add(meshes['fireball'],meshes['sun'],meshes['sprite'])
 
   var pv2 = new THREE.Object3D();
-  pv2.add(meshes['earth'],meshes['atmosphere'],meshes['glow']);
 
-  meshes['mars'] = new Mars( scene, light );
+  meshes['earth'] = new Earth( pv2, light, eR);
+  meshes['atmosphere'] = new Atmosphere( pv2, eR);
+  meshes['glow'] = new Glow( pv2, eR);
+
+  // pv2.add(meshes['earth'],meshes['atmosphere'],meshes['glow']);
+
   var pv3 = new THREE.Object3D();
-  pv3.add(meshes['mars']);
+  meshes['mars'] = new Mars( pv3, light );
+  // pv3.add(meshes['mars']);
 
-  var _geometry = new THREE.SphereBufferGeometry( SunR, 256, 256 ); // Sun
+  /*var _geometry = new THREE.SphereBufferGeometry( SunR, 256, 256 ); // Sun
   var _material = new THREE.MeshBasicMaterial( {
     color: 0xff0000,
     wireframe: true
   } );
-  var _mesh = new THREE.Mesh( _geometry, _material );
+  var _mesh = new THREE.Mesh( _geometry, _material );*/
 
 
   var _geometry2 = new THREE.SphereBufferGeometry( eR, 256, 256 ); // earth
@@ -45,7 +47,7 @@ function SolarSystem( scene, light ) {
     color: 0x0000ff,
     wireframe: true
   } );
-  _mesh2 = new THREE.Mesh( _geometry2, _material2 );
+  var _mesh2 = new THREE.Mesh( _geometry2, _material2 );
 
   var _geometry3 = new THREE.SphereBufferGeometry( MarR, 256, 256 ); // Mars
   var _material3 = new THREE.MeshBasicMaterial( {
@@ -128,7 +130,7 @@ function SolarSystem( scene, light ) {
   this.p9 = pivot9;
   this.p10 = pivot10;
 
-  this.mesh = _mesh;
+  // this.mesh = _mesh;
   this.mesh2 = _mesh2;
   this.mesh3 = _mesh3;
   this.mesh4 = _mesh4;
@@ -142,7 +144,7 @@ function SolarSystem( scene, light ) {
   console.log(this.mesh2);
   console.log(pv2);
   meshes['earth'].mesh.position.set(au+eR+SunR,0,0);
-  this.mesh.position.set(0,0,0);                     //set Sun position
+  // this.mesh.position.set(0,0,0);                     //set Sun position
   this.mesh2.position.set(au+eR+SunR,0,0);           //set Earth position
   this.mesh2.rotation.z=-Math.sin(23.5*radians);     //set Earth axis
   this.mesh3.position.set(1.5*au+MarR+SunR,0,0);     //set Mars position
@@ -197,7 +199,7 @@ SolarSystem.prototype.animate = function () {
   this.p9.rotateOnAxis(axis,14.7*eT);        //Uranus rotate around Sun.
   this.p10.rotateOnAxis(axis,11.73*eT);       //Neptune rotate around Sun.
 
-  this.mesh.rotateOnAxis(axis,0.0005);     //Sun rotate around itself.
+  // this.mesh.rotateOnAxis(axis,0.0005);     //Sun rotate around itself.
   this.mesh2.rotateOnAxis(axis,eT);    //Earth rotate around itself.
   this.mesh3.rotateOnAxis(axis,eT*0.521);   //Mars rotate around itself.
   this.mesh4.rotateOnAxis(axis,2.21*eT);    //Moon rotate around itself.
