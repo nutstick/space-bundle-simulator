@@ -62,15 +62,12 @@ function init() {
   light.position.set(0,0,250);
   scene.add(light);
 
-
-
-
-
   meshes['envmap'] = new EnvMap( scene );
 	meshes['fireball'] = new fireball(scene);
 	meshes['sun'] = new sun(scene);
   meshes['sprite'] = new sprite(scene);
 	// meshes['cloud'] = new cloud();
+  
 	// var geometry = new THREE.SphereGeometry( 30, 0, 0 );
 	// var material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
 	// mesh = new THREE.Mesh( geometry, material );

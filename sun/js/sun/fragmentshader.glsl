@@ -6,6 +6,6 @@ void main() {
 
     // colour is RGBA: u, v, 0, 1
     vec4 texture = texture2D(sunmap,vUv);
-    gl_FragColor = vec4(texture.xyz, 0.8);
+    gl_FragColor = vec4(texture.xyz, 1.);
 
 }
