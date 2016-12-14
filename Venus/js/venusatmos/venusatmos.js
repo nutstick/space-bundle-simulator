@@ -1,7 +1,8 @@
-function venusatmos( scene ){
+function venusatmos( scene, radius){
   //this.delta = 0.1
   //console.log(Shader.sun.fragment);
-  var geometry = new THREE.IcosahedronGeometry( 100, 6 );
+  var myRadius = radius || 100;
+  var geometry = new THREE.IcosahedronGeometry( myRadius, 6 );
   var material  = new THREE.ShaderMaterial({
     uniforms: {
         venusatmos: {

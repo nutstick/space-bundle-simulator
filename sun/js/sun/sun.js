@@ -1,7 +1,8 @@
-function sun( scene ){
+function sun( scene ,radius){
+  var myRadius = radius || 99;
   //this.delta = 0.1
   console.log(Shader.sun.fragment);
-  var geometry = new THREE.IcosahedronGeometry( 99, 6 );
+  var geometry = new THREE.IcosahedronGeometry( radius, 6 );
   var material  = new THREE.ShaderMaterial({
     uniforms: {
         sunmap: {

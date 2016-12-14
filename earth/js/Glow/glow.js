@@ -1,12 +1,12 @@
 
-function Glow( scene ) {
-  
+function Glow( scene, radius ) {
+  var myRadius = radius || 140;
   var uniforms = {
     coeficient	: { type	: "f", value	: 0.5 },
     power		: { type	: "f", value	: 4 },
     glowColor	: { type	: "c", value	: new THREE.Color( 0x00b3ff ) }
   };
-  var _geometry = new THREE.IcosahedronGeometry( 140, 4 );
+  var _geometry = new THREE.IcosahedronGeometry( myRadius, 4 );
   var _material = new THREE.ShaderMaterial({
     uniforms: uniforms,
     defines: {

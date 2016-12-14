@@ -1,18 +1,18 @@
-function venus( scene, light ){
-  
+function venus( scene, light, radius ){
+  var myRadius = radius || 140;
   var uniforms = Object.assign(
       THREE.UniformsLib['lights'],
       THREE.UniformsLib['normalmap'],
       {
         lightPosition: { type: 'v3', value: light.position },
-        textureMap: { type: 't', value: Texture.map },
-        normalMap: { type: 't', value: Texture.normalmap },
+        textureMap: { type: 't', value: Texture.venusmap },
+        normalMap: { type: 't', value: Texture.venusnormalmap },
         uvScale: { type: 'v2', value: new THREE.Vector2( 1.0, 1.0 ) }
         // specular: { type: 'c', value: new THREE.Color('grey') }
       }
   );
 
-  var geometry = new THREE.SphereBufferGeometry( 140, 256, 256 );
+  var geometry = new THREE.SphereBufferGeometry( myRadius, 256, 256 );
   var material  = new THREE.ShaderMaterial({
     uniforms: uniforms,
     defines: {
@@ -24,7 +24,7 @@ function venus( scene, light ){
     fog: false
   })
   var mesh = new THREE.Mesh(geometry, material)
-  
+
   mesh.castShadow = true;
   mesh.receiveShadow = true;
   THREE.BufferGeometryUtils.computeTangents( mesh.geometry );
@@ -38,7 +38,7 @@ function venus( scene, light ){
 }
 
 venus.prototype.animate = function(){
-  
+
   this.mesh.rotation.y  -= 1/32 * 0.05;
-  
+
 }

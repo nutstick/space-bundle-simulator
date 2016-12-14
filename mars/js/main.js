@@ -14,7 +14,7 @@ var clock = new THREE.Clock();
 var time = 0.0;
 
 function onWindowResize( event ) {
-  
+
   camera.aspect = $( '#container' ).innerWidth() / $( '#container' ).innerHeight();
   camera.updateProjectionMatrix();
 
@@ -65,6 +65,7 @@ function init() {
   // LarvaBall();
   // BlackholePlane();
   // meshes['cubemap'] = new Cubemap( scene );
+  meshes['envmap'] = new EnvMap( scene );
   meshes['mars'] = new Mars( scene, light );
 
   // One frame rendering

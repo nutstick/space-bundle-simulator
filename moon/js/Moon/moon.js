@@ -1,19 +1,20 @@
 
-function Moon( scene, light ) {
+function Moon( scene, light, radius ) {
+  var myRadius = radius || 140;
   var uniforms = Object.assign(
       THREE.UniformsLib['lights'],
       THREE.UniformsLib['normalmap'],
       {
         lightPosition: { type: 'v3', value: light.position },
-        textureMap: { type: 't', value: Texture.map },
-        normalMap: { type: 't', value: Texture.normalmap },
+        textureMap: { type: 't', value: Texture.moonmap },
+        normalMap: { type: 't', value: Texture.moonnormalmap },
         uvScale: { type: 'v2', value: new THREE.Vector2( 1.0, 1.0 ) }
         // specular: { type: 'c', value: new THREE.Color('grey') }
       }
   );
   // var _geometry = new THREE.BufferGeometry().fromGeometry( new THREE.SphereGeometry( 140, 256, 256 ) );
   var _geometry = new THREE.SphereBufferGeometry( 140, 256, 256 );
-  
+
   var _material = new THREE.ShaderMaterial({
     uniforms: uniforms,
     defines: {
@@ -24,7 +25,7 @@ function Moon( scene, light ) {
     lights: true,
     fog: false
   });
-  
+
   var _mesh = new THREE.Mesh(_geometry, _material);
 
   _mesh.castShadow = true;
@@ -34,7 +35,7 @@ function Moon( scene, light ) {
   this.mesh = _mesh;
   this.material = _material;
   this.geometry = _geometry;
-  
+
   scene.add(_mesh);
 
   return this;

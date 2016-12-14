@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Sample Three.js</title>
+		<style>
+			body {
+				margin: 0;
+				overflow: hidden;
+			}
+			#container {
+				width: 100%;
+				height: 100vh;
+			}
+		</style>
+	</head>
+	<body onload="shaderLoader()">
+
+		<div id="container">
+
+
+		</div>
+
+	</body>
+	<!-- Importing Scirpt  -->
+	<script src="../share/js/jquery.min.js"></script>
+	<script src="../share/js/three.min.js"></script>
+	<script src="../share/js/ShaderLoader.js"></script>
+	<script src="../share/js/TextureLoader.js"></script>
+  <script src="../share/js/dat.gui.min.js"></script>
+  <script src="../share/js/Detector.js"></script>
+  <script src="../share/js/OrbitControls.js"></script>
+  <script src="../share/js/BufferGeometryUtils.js"></script>
+	<!-- Shaders -->
+	<script data-src="../earth/js/Earth/vertexshader.glsl" data-name="earth" type="x-shader/x-vertex"></script>
+	<script data-src="../earth/js/Earth/fragmentshader.glsl" data-name="earth" type="x-shader/x-fragment"></script>
+	<script data-src="../earth/js/Earth/vertexshader_depth.glsl" data-name="vs_depth" type="x-shader/x-vertex"></script>
+
+	<script data-src="../earth/js/Atmosphere/vertexshader.glsl" data-name="atmosphere" type="x-shader/x-vertex"></script>
+	<script data-src="../earth/js/Atmosphere/fragmentshader.glsl" data-name="atmosphere" type="x-shader/x-fragment"></script>
+
+	<script data-src="../earth/js/Glow/vertexshader.glsl" data-name="glow" type="x-shader/x-vertex"></script>
+	<script data-src="../earth/js/Glow/fragmentshader.glsl" data-name="glow" type="x-shader/x-fragment"></script>
+
+	<script data-src="../earth/js/envmap/vertexshader.glsl" data-name="envmap" type="x-shader/x-vertex"></script>
+	<script data-src="../earth/js/envmap/fragmentshader.glsl" data-name="envmap" type="x-shader/x-fragment"></script>
+
+	<script data-src="../Jupiter/js/Jupiter/vertexshader.glsl" data-name="Jupiter" type="x-shader/x-vertex"></script>
+	<script data-src="../Jupiter/js/Jupiter/fragmentshader.glsl" data-name="Jupiter" type="x-shader/x-fragment"></script>
+
+	<script data-src="../mars/js/Mars/vertexshader.glsl" data-name="mars" type="x-shader/x-vertex"></script>
+	<script data-src="../mars/js/Mars/fragmentshader.glsl" data-name="mars" type="x-shader/x-fragment"></script>
+
+	<script data-src="../Mercury/js/Mercury/vertexshader.glsl" data-name="Mercury" type="x-shader/x-vertex"></script>
+	<script data-src="../Mercury/js/Mercury/fragmentshader.glsl" data-name="Mercury" type="x-shader/x-fragment"></script>
+
+	<script data-src="../moon/js/Moon/vertexshader.glsl" data-name="moon" type="x-shader/x-vertex"></script>
+	<script data-src="../moon/js/Moon/fragmentshader.glsl" data-name="moon" type="x-shader/x-fragment"></script>
+
+	<script data-src="../sun/js/fireball/vertexshader.glsl" data-name="fireball" type="x-shader/x-vertex"></script>
+	<script data-src="../sun/js/fireball/fragmentshader.glsl" data-name="fireball" type="x-shader/x-fragment"></script>
+	<script data-src="../sun/js/sun/vertexshader.glsl" data-name="sun" type="x-shader/x-vertex"></script>
+	<script data-src="../sun/js/sun/fragmentshader.glsl" data-name="sun" type="x-shader/x-fragment"></script>
+
+	<script data-src="../Venus/js/venus/vertexshader.glsl" data-name="venus" type="x-shader/x-vertex"></script>
+	<script data-src="../Venus/js/venus/fragmentshader.glsl" data-name="venus" type="x-shader/x-fragment"></script>
+	<script data-src="../Venus/js/venusatmos/vertexshader.glsl" data-name="venusatmos" type="x-shader/x-vertex"></script>
+	<script data-src="../Venus/js/venusatmos/fragmentshader.glsl" data-name="venusatmos" type="x-shader/x-fragment"></script>
+	<!-- End Shaders -->
+	<!-- Textures -->
+	<texture data-texture data-src="../earth/img/earth/earthmap.jpg" data-name="earthmap"></texture>
+	<texture data-texture data-src="../earth/img/earth/bumpmap.jpg" data-name="earthbumpmap"></texture>
+	<texture data-texture data-src="../earth/img/earth/water_4k.png" data-name="earthspecmap"></texture>
+	<texture data-texture data-src="../earth/img/earth/normalmap.jpg" data-name="earthnormalmap"></texture>
+	<texture data-texture data-src="../share/img/stars.jpg" data-name="envMap"></texture>
+
+	<texture data-texture data-src="../Jupiter/img/jupitermap.jpg" data-name="Jupitermap" />
+
+	<texture data-texture data-src="../mars/img/marsmap1k.jpg" data-name="marsmap" />
+	<texture data-texture data-src="../mars/img/mars_1k_normal.jpg" data-name="marsnormalmap" />
+	<texture data-texture data-src="../mars/img/bump_map.jpg" data-name="marsbumpmap" />
+
+	<texture data-texture data-src="../Mercury/img/mercurymap.jpg" data-name="Mercurymap" />
+	<texture data-texture data-src="../Mercury/img/mercurybump.jpg" data-name="Mercurybumpmap" />
+
+	<texture data-texture data-src="../moon/img/moon.jpg" data-name="moonmap" />
+	<texture data-texture data-src="../moon/img/normal.jpg" data-name="moonnormalmap" />
+
+	<texture data-texture data-src="../sun/img/explosion.png" data-name="sunexplosion"></texture>
+	<texture data-texture data-src="../sun/img/2k_sun.jpg" data-name="sunmap"></texture>
+	<texture data-texture data-src="../sun/img/glow2.png" data-name="glow"></texture>
+
+	<texture data-texture data-src="../share/img/stars.jpg" data-name="envMap"></texture>
+	<texture data-texture data-src="../Venus/img/venusmap.jpg" data-name="venusmap"></texture>
+	<texture data-texture data-src="../Venus/img/VenusNormal2k.png" data-name="venusnormalmap"></texture>
+	<texture data-texture data-src="../Venus/img/venusatmos.jpg" data-name="venusatmos"></texture>
+
+
+	<!-- End Textures -->
+	<script src="../earth/js/main.js" type="text/javascript"></script>
+	<script src="../earth/js/envmap/envmap.js" type="text/javascript"></script>
+	<script src="../earth/js/Earth/earth.js" type="text/javascript"></script>
+	<script src="../earth/js/Atmosphere/atmosphere.js" type="text/javascript"></script>
+	<script src="../earth/js/Glow/glow.js" type="text/javascript"></script>
+
+	<script src="../Jupiter/js/main.js" type="text/javascript"></script>
+	<script src="../Jupiter/js/Jupiter/Jupiter.js" type="text/javascript"></script>
+	<script src="../Jupiter/js/envmap/envmap.js" type="text/javascript"></script>
+
+	<script src="../mars/js/main.js" type="text/javascript"></script>
+	<script src="../mars/js/Mars/mars.js" type="text/javascript"></script>
+
+	<script src="../Mercury/js/main.js" type="text/javascript"></script>
+	<script src="../Mercury/js/Mercury/Mercury.js" type="text/javascript"></script>
+
+	<script src="../moon/js/main.js" type="text/javascript"></script>
+	<script src="../moon/js/Moon/moon.js" type="text/javascript"></script>
+
+	<script src="../sun/js/sprite/sprite.js" type="text/javascript"></script>
+	<script src="../sun/js/main.js" type="text/javascript"></script>
+	<script src="../sun/js/fireball/fireball.js" type="text/javascript"></script>
+	<script src="../sun/js/envmap/envmap.js" type="text/javascript"></script>
+	<script src="../sun/js/sun/sun.js" type="text/javascript"></script>
+
+	<script src="../Venus/js/main.js" type="text/javascript"></script>
+	<script src="../Venus/js/envmap/envmap.js" type="text/javascript"></script>
+	<script src="../Venus/js/venus/venus.js" type="text/javascript"></script>
+	<script src="../Venus/js/venusatmos/venusatmos.js" type="text/javascript"></script>
+
+	<script src="js/main.js" type="text/javascript"></script>
+	<script src="js/SolarSystem/SolarSystem.js" type="text/javascript"></script>
+	<script src="js/envmap/envmap.js" type="text/javascript"></script>
+</html>

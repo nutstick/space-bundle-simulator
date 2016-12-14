@@ -1,5 +1,6 @@
 
-function Earth( scene, light ) {
+function Earth( scene, light, radius ) {
+  myRadius = radius || 140;
   var radians = 23.5 * Math.PI / 180;
   this.time = 0;
   var uniforms = Object.assign(
@@ -7,11 +8,11 @@ function Earth( scene, light ) {
       THREE.UniformsLib['normalmap'],
       {
         lightPosition: { type: 'v3', value: light.position },
-        textureMap: { type: 't', value: Texture.map },
-        normalMap: { type: 't', value: Texture.normalmap }
+        textureMap: { type: 't', value: Texture.earthmap },
+        normalMap: { type: 't', value: Texture.earthnormalmap }
       }
   );
-  var _geometry = new THREE.SphereBufferGeometry( 140, 256, 256 );
+  var _geometry = new THREE.SphereBufferGeometry( myRadius, 256, 256 );
   var _material = new THREE.ShaderMaterial({
     uniforms: uniforms,
     defines: {
@@ -28,7 +29,7 @@ function Earth( scene, light ) {
   _mesh.castShadow = true;
   _mesh.receiveShadow = true;
   THREE.BufferGeometryUtils.computeTangents( _mesh.geometry );
-  
+
   this.mesh = _mesh;
   this.material = _material;
   this.geometry = _geometry;

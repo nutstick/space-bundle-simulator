@@ -34,27 +34,15 @@
 	<!-- Shaders -->
 	<script data-src="./js/Moon/vertexshader.glsl" data-name="moon" type="x-shader/x-vertex"></script>
 	<script data-src="./js/Moon/fragmentshader.glsl" data-name="moon" type="x-shader/x-fragment"></script>
+	<script data-src="./js/envmap/vertexshader.glsl" data-name="envmap" type="x-shader/x-vertex"></script>
+	<script data-src="./js/envmap/fragmentshader.glsl" data-name="envmap" type="x-shader/x-fragment"></script>
 	<!-- End Shaders -->
 	<!-- Textures -->
-	<texture data-texture data-src="./img/moon.jpg" data-name="map" />
-	<texture data-texture data-src="./img/normal.jpg" data-name="normalmap" />
-  <!-- cubemap data-src="./img/cubemap/" data-name="cubemap">
-  	<xneg data-src="dawnmountain-xneg.png" />
-  	<xpos data-src="dawnmountain-xpos.png" />
-  	<yneg data-src="dawnmountain-yneg.png" />
-  	<ypos data-src="dawnmountain-ypos.png" />
-  	<zneg data-src="dawnmountain-zneg.png" />
-  	<zpos data-src="dawnmountain-zpos.png" />
-  </cubemap -->
-  <!-- cubemap data-src="./img/" data-name="space">
-  	<xneg data-src="bg1024.png" />
-  	<xpos data-src="bg1024.png" />
-  	<yneg data-src="bg1024.png" />
-  	<ypos data-src="bg1024.png" />
-  	<zneg data-src="bg1024.png" />
-  	<zpos data-src="bg1024.png" />
-  </cubemap -->
+	<texture data-texture data-src="./img/moon.jpg" data-name="moonmap" />
+	<texture data-texture data-src="./img/normal.jpg" data-name="moonnormalmap" />
+	<texture data-texture data-src="../share/img/stars.jpg" data-name="envMap"></texture>
 	<!-- End Textures -->
 	<script src="js/main.js" type="text/javascript"></script>
 	<script src="js/Moon/moon.js" type="text/javascript"></script>
+	<script src="js/envmap/envmap.js" type="text/javascript"></script>
 </html>

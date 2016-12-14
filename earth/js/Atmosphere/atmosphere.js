@@ -1,5 +1,6 @@
 
-function Atmosphere( scene ) {
+function Atmosphere( scene, radius ) {
+  myRadius = radius || 140;
   var radians = 23.5 * Math.PI / 180;
   this.time = 0;
   var uniforms = {

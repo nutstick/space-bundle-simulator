@@ -14,7 +14,7 @@ var clock = new THREE.Clock();
 var time = 0.0;
 
 function onWindowResize( event ) {
-  
+
   camera.aspect = $( '#container' ).innerWidth() / $( '#container' ).innerHeight();
   camera.updateProjectionMatrix();
 
@@ -65,32 +65,26 @@ function init() {
 
 
 
-  // LarvaBall();
-  // BlackholePlane();
-  // meshes['cubemap'] = new Cubemap( scene );
-	//console.log(fireball);
-  // meshes['earth'] = new earth();
+
   meshes['envmap'] = new EnvMap( scene );
 	meshes['fireball'] = new fireball(scene);
 	meshes['sun'] = new sun(scene);
+  meshes['sprite'] = new sprite(scene);
 	// meshes['cloud'] = new cloud();
-	var geometry = new THREE.SphereGeometry( 30, 0, 0 );
-	var material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
-	mesh = new THREE.Mesh( geometry, material );
-	mesh.position.set(0,0,0);
-	scene.add(mesh);
-	// use sprite because it appears the same from all angles
-	var spriteMaterial = new THREE.SpriteMaterial(
-	{
-		map: Texture.glow,
-		color: 0xffffff, blending: THREE.AdditiveBlending
-	});
-	var sprite = new THREE.Sprite( spriteMaterial );
-	sprite.scale.set(250, 250, 1.0);
-	mesh.add(sprite); // this centers the glow at the mesh
-
-  // One frame rendering
-  // renderer.render( scene, camera );
+	// var geometry = new THREE.SphereGeometry( 30, 0, 0 );
+	// var material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
+	// mesh = new THREE.Mesh( geometry, material );
+	// mesh.position.set(0,0,0);
+	// scene.add(mesh);
+	// // use sprite because it appears the same from all angles
+	// var spriteMaterial = new THREE.SpriteMaterial(
+	// {
+	// 	map: Texture.glow,
+	// 	color: 0xffffff, blending: THREE.AdditiveBlending
+	// });
+	// var sprite = new THREE.Sprite( spriteMaterial );
+	// sprite.scale.set(250, 250, 1.0);
+	// mesh.add(sprite); // this centers the glow at the mesh
 }
 
 function animate() {
@@ -100,7 +94,7 @@ function animate() {
     // update control
 		meshes['sun'].animate();
 		meshes['fireball'].animate();
-    
+
     controls.update();
 
     renderer.render( scene, camera );

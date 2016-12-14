@@ -14,7 +14,7 @@ var clock = new THREE.Clock();
 var time = 0.0;
 
 function onWindowResize( event ) {
-  
+
   camera.aspect = $( '#container' ).innerWidth() / $( '#container' ).innerHeight();
   camera.updateProjectionMatrix();
 

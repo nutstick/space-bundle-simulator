@@ -56,6 +56,7 @@ function init() {
   // LarvaBall();
   // BlackholePlane();
   // meshes['cubemap'] = new Cubemap( scene );
+	meshes['envmap'] = new EnvMap( scene );
   meshes['moon'] = new Moon( scene, light );
 
   // One frame rendering

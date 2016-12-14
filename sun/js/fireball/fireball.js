@@ -1,11 +1,12 @@
-function fireball(scene){
+function fireball(scene, radius){
+  var myRadius = radius || 99;
   var start = Date.now();
   var geometry = new THREE.IcosahedronGeometry( 99, 6 );
   var material = new THREE.ShaderMaterial( {
     uniforms: {
         tExplosion: {
             type: "t",
-            value: Texture.explosion
+            value: Texture.sunexplosion
         },
         time: { // float initialized to 0
             type: "f",

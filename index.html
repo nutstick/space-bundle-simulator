@@ -3,179 +3,91 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Schwarzschild Black Hole</title>
+  <title>Space bundle</title>
 
-  <!-- using a couple functions from these guys
-    yes I'm a WebGL noob -->
-  <link type="text/css" href="resources/webgl-tutorials.css" rel="stylesheet" />
-
-
-  <!--jQuery & Bootstrap -->
   <script src="http://code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
+	<!-- Importing Scirpt  -->
+  <script src="./share/js/svgreplace.js" type="text/javascript"></script>
+  <script src="./share/js/index.js" type="text/javascript"></script>
+  <!--jQuery & Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
-
-  <style>
-    body { 
-      position: relative;
-      background: #000;
-      font-family: 'Amatic SC', cursive;
-    }
-    .background {
-      position: fixed;
-      left: -0px;
-      right: 0px;
-      z-index: -1;
-      background: #000 url(thumbnails/bg.jpg) no-repeat top;
-
-      display: block;
-      height: 100vh;
-    }
-    section {
-      height: 100vh;
-    }
-    #title h1 {
-      text-align: center;
-      margin-top: 450px;
-      color: #fff;
-      font-size: 72px;
-      letter-spacing: 0.5rem
-    }
-    ul.thumbnail-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-
-      display: -webkit-box;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-
-      -webkit-flex-flow: row wrap;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-around;
-    }
-    ul.thumbnail-list > li {
-      background: white;
-      width: 340px;
-      border-radius: 2px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 4px;
-      margin: 15px;
-      font-weight: 500;
-      font-family: 'Bree Serif', serif;
-
-      box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
-    }
-    ul.thumbnail-list > li > a:hover{
-      text-decoration: none;
-    }
-    .thumbnails {
-      width: 100%;
-      height: 100%;
-    }
-    .text-title {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 3;
-
-      opacity: 0;
-
-      font-size: 42px;
-      line-height: 162px;
-      text-align: center;
-      padding: 16px;
-      color: #fff;
-      background: rgba(0, 0, 0, .6);
-
-      -webkit-transition: opacity 0.5s ease-in-out;
-      -moz-transition: opacity 0.5s ease-in-out;
-      -o-transition: opacity 0.5s ease-in-out;
-      -ms-transition: opacity 0.5s ease-in-out;
-      transition: opacity 0.5s ease-in-out;
-    }
-    .text-title:hover {
-      opacity: 1;
-    }
-
-    #name {
-      color: #fff;
-      font-size: 48px;
-      text-align: center;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+  <!-- Custom Stylesheets -->
+  <link href="./stylesheets/styles.css" rel="stylesheet">
 </head>
 <body>
   <div class="background"></div>
   <section id="title" class="container">
     <h1>Space Bundle</h1>
+    <a href="#" id="jumpDown" class="text-center"><img id="down" class="svg" src="./thumbnails/angle-double-down.svg"></a>
   </section>
-  <section class="container">
-    <ul class="thumbnail-list">
-      <li>
-        <a href="./blackhole">
-          <img class="thumbnails" src="thumbnails/blackhole.png"></img>
-          <div class="text-title">Blackhole</div>
-        </a>
-      </li>
-      <li>
-        <a href="./earth">
-          <img class="thumbnails" src="thumbnails/earth.png"></img>
-          <div class="text-title">Earth</div>
-        </a>
-      </li>
-      <li>
-        <a href="./moon">
-          <img class="thumbnails" src="thumbnails/moon.png"></img>
-          <div class="text-title">Moon</div>
-        </a>
-      </li>
-      <li>
-        <a href="./sun">
-          <img class="thumbnails" src="thumbnails/sun.png"></img>
-          <div class="text-title">Sun</div>
-        </a>
-      </li>
-      <li>
-        <a href="./mars">
-          <img class="thumbnails" src="thumbnails/mars.png"></img>
-          <div class="text-title">Mars</div>
-        </a>
-      </li>
-      <li>
-        <a href="./venus">
-          <img class="thumbnails" src="thumbnails/venus.png"></img>
-          <div class="text-title">Venus</div>
-        </a>
-      </li>
-      <li>
-        <a href="./saturn">
-          <img class="thumbnails" src="thumbnails/saturn.png"></img>
-          <div class="text-title">Saturn</div>
-        </a>
-      </li>
-      <li>
-        <a href="./asteriod">
-          <img class="thumbnails" src="thumbnails/asteriod.png"></img>
-          <div class="text-title">Asteriod</div>
-        </a>
-      </li>
-      <li>
-        <a href="./asteriod">
-          <img class="thumbnails" src="thumbnails/asteriod.png"></img>
-          <div class="text-title">Asteriod</div>
-        </a>
-      </li>
-    </ul>
+  <section id="galaxy-holder">
+    <iframe id="container" src="./moon"></iframe>
+  </section>
+  <section id="starlist">
+    <div class="container">
+      <h2 class="text-center" style="color: #fff; font-size: 30px;">Star Preview</h1>
+      <ul class="thumbnail-list"> 
+        <li>
+          <a href="./blackhole">
+            <img class="thumbnails" src="thumbnails/blackhole.png"></img>
+            <div class="text-title">Blackhole</div>
+          </a>
+        </li>
+        <li>
+          <a href="./earth">
+            <img class="thumbnails" src="thumbnails/earth.png"></img>
+            <div class="text-title">Earth</div>
+          </a>
+        </li>
+        <li>
+          <a href="./moon">
+            <img class="thumbnails" src="thumbnails/moon.png"></img>
+            <div class="text-title">Moon</div>
+          </a>
+        </li>
+        <li>
+          <a href="./sun">
+            <img class="thumbnails" src="thumbnails/sun.png"></img>
+            <div class="text-title">Sun</div>
+          </a>
+        </li>
+        <li>
+          <a href="./mars">
+            <img class="thumbnails" src="thumbnails/mars.png"></img>
+            <div class="text-title">Mars</div>
+          </a>
+        </li>
+        <li>
+          <a href="./Venus">
+            <img class="thumbnails" src="thumbnails/venus.png"></img>
+            <div class="text-title">Venus</div>
+          </a>
+        </li>
+        <li>
+          <a href="./saturn">
+            <img class="thumbnails" src="thumbnails/saturn.png"></img>
+            <div class="text-title">Saturn</div>
+          </a>
+        </li>
+        <li>
+          <a href="./asteriod">
+            <img class="thumbnails" src="thumbnails/asteriod.png"></img>
+            <div class="text-title">Asteriod</div>
+          </a>
+        </li>
+        <li>
+          <a href="./asteriod">
+            <img class="thumbnails" src="thumbnails/asteriod.png"></img>
+            <div class="text-title">Asteriod</div>
+          </a>
+        </li>
+      </ul>
+    </div>
   </section>
   <section id="name"class="container">
     <p>Project By</p>
