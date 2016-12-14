@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!-- Licensed under a BSD license. See license.html for license -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Schwarzschild Black Hole</title>
+
+  <!-- using a couple functions from these guys
+    yes I'm a WebGL noob -->
+  <link type="text/css" href="resources/webgl-tutorials.css" rel="stylesheet" />
+
+
+  <!--jQuery & Bootstrap -->
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+
+  <style>
+    body { 
+      position: relative;
+      background: #000;
+      font-family: 'Kanit', sans-serif;
+    }
+    .background {
+      position: absolute;
+      left: -20px;
+      right: 20px;
+      z-index: -1;
+      background: #000 url(http://www.space.com/images/site/page-bg.jpg) no-repeat top;
+
+      display: block;
+      width: 120%;
+      height: 100vh;
+      /*
+      webkit-filter: blur(2px);
+      -moz-filter: blur(2px);
+      -o-filter: blur(2px);
+      -ms-filter: blur(2px);
+      filter: blur(2px);
+      */
+    }
+    .first.container {
+      background: rgba(255,255,255,1);
+    }
+    h1 {
+      text-align: center;
+    }
+    ul.thumbnail-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+
+      -webkit-flex-flow: row wrap;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    ul.thumbnail-list > li {
+      width: 340px;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      margin: 15px;
+
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    }
+    ul.thumbnail-list > li > a:hover{
+      text-decoration: none;
+    }
+    .thumbnails {
+      width: 340px;
+      height: 176px;
+      background: tomato;
+      border: 0px;
+    }
+    .text-subtitle {
+      color: rgba(0,0,0,.54);
+      font-size: 1rem;
+      line-height: 18px;
+      overflow: hidden;
+      padding: 16px;
+      width: 90%;
+    }
+    .text-title {
+      font-size: 16px;
+      line-height: normal;
+      width: 100%;
+      background-color: transparent;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="container first">
+    <div class="background"></div>
+    <h1>Space Bundle</h1>
+    <hr>
+    <ul class="thumbnail-list">
+      <li>
+        <a href="./blackhole">
+          <img class="thumbnails" src="thumbnails/blackhole.png"></img>
+          <div class="text-title">Blackhole</div>
+        </a>
+      </li>
+      <li>
+        <a href="./earth">
+          <img class="thumbnails" src="thumbnails/earth.png"></img>
+          <div class="text-title">Earth</div>
+        </a>
+      </li>
+      <li>
+        <a href="./moon">
+          <img class="thumbnails" src="thumbnails/moon.png"></img>
+          <div class="text-title">Moon</div>
+        </a>
+      </li>
+      <li>
+        <a href="./sun">
+          <img class="thumbnails" src="thumbnails/sun.png"></img>
+          <div class="text-title">Sun</div>
+        </a>
+      </li>
+      <li>
+        <a href="./mars">
+          <img class="thumbnails" src="thumbnails/mars.png"></img>
+          <div class="text-title">Mars</div>
+        </a>
+      </li>
+      <li>
+        <a href="./venus">
+          <img class="thumbnails" src="thumbnails/venus.png"></img>
+          <div class="text-title">Venus</div>
+        </a>
+      </li>
+      <li>
+        <a href="./saturn">
+          <img class="thumbnails" src="thumbnails/saturn.png"></img>
+          <div class="text-title">Saturn</div>
+        </a>
+      </li>
+      <li>
+        <a href="./asteriod">
+          <img class="thumbnails" src="thumbnails/saturn.png"></img>
+          <div class="text-title">Asteriod</div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="container second">
+    <p>Project By</p>
+    <p>1.</p>
+    <p>2.</p>
+    <p>3.</p>
+    <p>4.</p>
+  </div>
+</body>
+</html>
