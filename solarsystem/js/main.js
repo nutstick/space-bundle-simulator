@@ -38,7 +38,7 @@ function init() {
   ASPECT = WIDTH / HEIGHT;
 
   camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR );
-  camera.position.set(0, 2000000, 0);
+  camera.position.set(0, 2000, 0);
   camera.lookAt(scene.position);
 
   raycaster = new THREE.Raycaster();
@@ -57,7 +57,7 @@ function init() {
 
   // Setup Light
   var light = new THREE.PointLight( 0xffffff );
-  light.position.set(0, 100000, 0);
+  light.position.set(0, 0, 0);
 	scene.add(light);
 
   var packingObject	= new THREE.Object3D();
