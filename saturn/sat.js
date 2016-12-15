@@ -85,7 +85,7 @@ function createRings(radius, segments) {
 
 function createStars(radius, segments) {
   return new THREE.Mesh(new THREE.SphereGeometry(radius, segments, segments), new THREE.MeshBasicMaterial({
-    map: THREE.ImageUtils.loadTexture('https://cdn.rawgit.com/bubblin/The-Solar-System/master/images/shared/galaxy_starfield.jpg'),
+    map: THREE.ImageUtils.loadTexture('./galaxy_starfield.jpg'),
     side: THREE.BackSide
   }));
 }
